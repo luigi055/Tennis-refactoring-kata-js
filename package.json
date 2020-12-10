@@ -1,9 +1,16 @@
 {
-  "scripts": {
-    "test": "jest"
-  },
+  "name": "tennis-refactoring-kata",
+  "version": "1.0.0",
+  "description": "Kata for put in practice refactoring techniques",
+  "main": "index.js",
+  "dependencies": {},
   "devDependencies": {
     "jest": "^26.4.2",
     "jest-each": "^26.4.2"
-  }
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Pedro La Rosa.",
+  "license": "ISC"
 }
