@@ -15,18 +15,6 @@ class Score {
     get FORTY() {return this._forty}
     get DEUCE() {return this._deuce}
 
-    static calculateScore(scoreOne, scoreTwo) {
-        if (scoreOne.isSameScore(scoreTwo)) {
-            return scoreOne.isDeuce()
-                ? scoreOne.DEUCE
-                : `${scoreOne.parseScore()}-All`
-        }
-        if (this.areThereAdvantage(scoreOne,scoreTwo)) {
-            return this.#calculateAdvantageWith(scoreOne, scoreTwo);
-        }
-
-        return `${scoreOne.parseScore()}-${scoreTwo.parseScore()}`
-    }
 
     static areThereAdvantage(scoreOne,scoreTwo) {
         return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
@@ -45,6 +33,19 @@ class Score {
         if (countPointDifferences >= 2) return PLAYER_ONE_WINNER;
 
         return PLAYER_TWO_WINNER;
+    }
+
+    static calculateScore(scoreOne, scoreTwo) {
+        if (scoreOne.isSameScore(scoreTwo)) {
+            return scoreOne.isDeuce()
+                ? scoreOne.DEUCE
+                : `${scoreOne.parseScore()}-All`
+        }
+        if (this.areThereAdvantage(scoreOne,scoreTwo)) {
+            return this.#calculateAdvantageWith(scoreOne, scoreTwo);
+        }
+
+        return `${scoreOne.parseScore()}-${scoreTwo.parseScore()}`
     }
 
     isSameScore(score) {
