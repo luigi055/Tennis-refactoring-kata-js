@@ -14,13 +14,11 @@ function getScore(playerOneScore, playerTwoScore) {
 }
 
 function parseSingleScore(scoreNumber) {
-    const scoreMap = new Map()
-    scoreMap.set(0, "Love");
-    scoreMap.set(1, "Fifteen");
-    scoreMap.set(2, "Thirty");
-    scoreMap.set(3, "Forty");
+    if (scoreNumber === 0) return "Love"
+    if (scoreNumber === 1) return "Fifteen"
+    if (scoreNumber === 2) return "Thirty"
 
-    return scoreMap.get(scoreNumber);
+    return "Forty"
 
 }
 
