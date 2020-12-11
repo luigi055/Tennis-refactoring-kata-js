@@ -1,19 +1,21 @@
 class Score {
+    #scoreNumber = 0
+    #love = "Love";
+    #fifteen = "Fifteen";
+    #thirty = "Thirty";
+    #forty = "Forty";
+    #deuce = "Deuce";
+
     constructor(scoreNumber) {
-        this._scoreNumber = scoreNumber
-        this._love = "Love";
-        this._fifteen = "Fifteen";
-        this._thirty = "Thirty";
-        this._forty = "Forty";
-        this._deuce = "Deuce";
+        this.#scoreNumber = scoreNumber
     }
 
-    get scoreNumber() {return this._scoreNumber}
-    get LOVE() {return this._love}
-    get FIFTEEN() {return this._fifteen}
-    get THIRTY() {return this._thirty}
-    get FORTY() {return this._forty}
-    get DEUCE() {return this._deuce}
+    get scoreNumber() {return this.#scoreNumber}
+    get LOVE() {return this.#love}
+    get FIFTEEN() {return this.#fifteen}
+    get THIRTY() {return this.#thirty}
+    get FORTY() {return this.#forty}
+    get DEUCE() {return this.#deuce}
 
     isSameScore(score) {
         return score.scoreNumber === this.scoreNumber;
