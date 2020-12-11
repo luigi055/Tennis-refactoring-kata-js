@@ -20,19 +20,13 @@ class Score {
         return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
     }
 
-    static #calculateAdvantageWith(scoreOne, scoreTwo) {
-        const PLAYER_ONE_WINNER = "Win for player1"
-        const PLAYER_ONE_ADVANTAGE = "Advantage player1"
-        const PLAYER_TWO_WINNER = "Win for player2"
-        const PLAYER_TWO_ADVANTAGE = "Advantage player2"
+    static #calculateAdvantageWith(playerOneScore, playerTwoScore) {
+        const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
+        const winningPlayer = playerOneScore.isWinningOver(playerTwoScore) ? "player1" : "player2"
+        const advantageOrWin =
+            (countPointDifferences * countPointDifferences === 1) ? "Advantage": "Win for";
 
-        const countPointDifferences = scoreOne.scoreNumber - scoreTwo.scoreNumber;
-
-        if (countPointDifferences === 1) return PLAYER_ONE_ADVANTAGE;
-        if (countPointDifferences === -1) return PLAYER_TWO_ADVANTAGE;
-        if (countPointDifferences >= 2) return PLAYER_ONE_WINNER;
-
-        return PLAYER_TWO_WINNER;
+        return `${advantageOrWin} ${winningPlayer}`
     }
 
     static calculateScore(scoreOne, scoreTwo) {
@@ -58,6 +52,10 @@ class Score {
 
     isDeuce() {
         return this.scoreNumber >= 3
+    }
+
+    isWinningOver(score) {
+        return this.scoreNumber > score.scoreNumber
     }
 
     parseScore() {
