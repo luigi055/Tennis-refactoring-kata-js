@@ -3,8 +3,6 @@
 function getScore(playerOneScore, playerTwoScore) {
     // mutatable Data
     var score = "";
-    // Temporal field
-    var tempScore = 0;
 
     // switch statement
     if (playerOneScore === playerTwoScore) {
@@ -30,15 +28,7 @@ function getScore(playerOneScore, playerTwoScore) {
         else if (minusResult >= 2) {score = "Win for player1";}
         else {score = "Win for player2";}
     } else {
-        // loops
-        for (var i = 1; i < 3; i++) {
-            if (i === 1) {tempScore = playerOneScore;}
-            else {
-                score += "-";
-                tempScore = playerTwoScore;
-            }
-            score += parseScore(tempScore)
-        }
+        score = parseScore(playerOneScore) + "-" + parseScore(playerTwoScore)
     }
     return score;
 }
