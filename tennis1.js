@@ -33,10 +33,10 @@ function haveSamePoints(playerOneScore, playerTwoScore) {
 }
 
 function calculatePlayerWinnerOrAdvantage(playerOneScore, playerTwoScore) {
-    const minusResult = playerOneScore - playerTwoScore;
-    if (minusResult === 1) return "Advantage player1";
-    if (minusResult === -1) return "Advantage player2";
-    if (minusResult >= 2) return "Win for player1";
+    const countPointDifferences = playerOneScore - playerTwoScore;
+    if (countPointDifferences === 1) return "Advantage player1";
+    if (countPointDifferences === -1) return "Advantage player2";
+    if (countPointDifferences >= 2) return "Win for player1";
 
     return "Win for player2";
 }
