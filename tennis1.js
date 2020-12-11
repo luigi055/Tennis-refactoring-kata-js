@@ -1,10 +1,14 @@
 'use strict';
 
-function getScore(m_score1, m_score2) {
+function getScore(playerOneScore, playerTwoScore) {
+    // mutatable Data
     var score = "";
+    // Temporal field
     var tempScore = 0;
-    if (m_score1 === m_score2) {
-        switch (m_score1) {
+
+    // switch statement
+    if (playerOneScore === playerTwoScore) {
+        switch (playerOneScore) {
             case 0:
                 score = "Love-All";
                 break;
@@ -18,18 +22,19 @@ function getScore(m_score1, m_score2) {
                 score = "Deuce";
                 break;
         }
-    } else if (m_score1 >= 4 || m_score2 >= 4) {
-        var minusResult = m_score1 - m_score2;
+    } else if (playerOneScore >= 4 || playerTwoScore >= 4) {
+        var minusResult = playerOneScore - playerTwoScore;
         if (minusResult === 1) {score = "Advantage player1";}
         else if (minusResult === -1) {score = "Advantage player2";}
         else if (minusResult >= 2) {score = "Win for player1";}
         else {score = "Win for player2";}
     } else {
+        // loops
         for (var i = 1; i < 3; i++) {
-            if (i === 1) {tempScore = m_score1;}
+            if (i === 1) {tempScore = playerOneScore;}
             else {
                 score += "-";
-                tempScore = m_score2;
+                tempScore = playerTwoScore;
             }
             switch (tempScore) {
                 case 0:
