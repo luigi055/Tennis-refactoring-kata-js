@@ -1,10 +1,12 @@
 'use strict';
 
 function getScore(playerOneScore, playerTwoScore) {
-    if (haveSamePoints(playerOneScore, playerTwoScore)) {
-        return playerOneScore >= 3 ? "Deuce" : parseSingleScore(playerOneScore) + "-All"
+    if (haveBothPlayerMoreThanThreePoints(playerOneScore, playerTwoScore)) {
+        return "Deuce";
     }
-
+    if (haveSamePoints(playerOneScore, playerTwoScore)) {
+        return parseSingleScore(playerOneScore) + "-All"
+    }
     if (haveAnyPlayerAdvantage(playerOneScore, playerTwoScore)) {
         return calculatePlayerWinnerOrAdvantage(playerOneScore, playerTwoScore)
     }
@@ -13,14 +15,7 @@ function getScore(playerOneScore, playerTwoScore) {
 
 }
 
-function parseSingleScore(scoreNumber) {
-    if (scoreNumber === 0) return "Love"
-    if (scoreNumber === 1) return "Fifteen"
-    if (scoreNumber === 2) return "Thirty"
 
-    return "Forty"
-
-}
 
 function haveAnyPlayerAdvantage(playerOneScore, playerTwoScore) {
     return playerOneScore >= 4 || playerTwoScore >= 4
@@ -28,6 +23,17 @@ function haveAnyPlayerAdvantage(playerOneScore, playerTwoScore) {
 
 function haveSamePoints(playerOneScore, playerTwoScore) {
     return playerOneScore === playerTwoScore;
+}
+
+function haveBothPlayerMoreThanThreePoints (playerOneScore, playerTwoScore) {
+    return haveSamePoints(playerOneScore, playerTwoScore) && playerOneScore >= 3
+}
+function parseSingleScore(scoreNumber) {
+    if (scoreNumber === 0) return "Love"
+    if (scoreNumber === 1) return "Fifteen"
+    if (scoreNumber === 2) return "Thirty"
+
+    return "Forty"
 }
 
 function calculatePlayerWinnerOrAdvantage(playerOneScore, playerTwoScore) {
