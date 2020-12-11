@@ -6,21 +6,7 @@ function getScore(playerOneScore, playerTwoScore) {
 
     // switch statement
     if (playerOneScore === playerTwoScore) {
-        switch (playerOneScore) {
-            // Primitive Obsession
-            case 0:
-                score = "Love-All";
-                break;
-            case 1:
-                score = "Fifteen-All";
-                break;
-            case 2:
-                score = "Thirty-All";
-                break;
-            default:
-                score = "Deuce";
-                break;
-        }
+        score = playerOneScore >= 3 ? "Deuce" : parseScore(playerOneScore) + "-All"
     } else if (playerOneScore >= 4 || playerTwoScore >= 4) {
         var minusResult = playerOneScore - playerTwoScore;
         if (minusResult === 1) {score = "Advantage player1";}
