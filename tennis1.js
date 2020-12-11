@@ -15,39 +15,30 @@ class Score {
     get FORTY() {return this._forty}
     get DEUCE() {return this._deuce}
 
-    parseScore() {
-        if (this.scoreNumber === 0) return this.LOVE
-        if (this.scoreNumber === 1) return this.FIFTEEN
-        if (this.scoreNumber === 2) return this.THIRTY
+    static calculateScore(scoreOne, scoreTwo) {
+        if (scoreOne.isSameScore(scoreTwo)) {
+            return scoreOne.isDeuce()
+                ? scoreOne.DEUCE
+                : `${scoreOne.parseScore()}-All`
+        }
+        if (this.areThereAdvantage(scoreOne,scoreTwo)) {
+            return this.#calculateAdvantageWith(scoreOne, scoreTwo);
+        }
 
-        return this.FORTY
+        return `${scoreOne.parseScore()}-${scoreTwo.parseScore()}`
     }
 
-    getScoreComparedWith(score) {
-        if (this.IsSameScoreAndDeuce(score)) {
-            return this.DEUCE;
-        }
-        if (this.isSameScore(score)) {
-            return `${this.parseScore()}-All`
-        }
-        if (this.areThereAdvantage(this,score)) {
-            return this.calculateAdvantageWith(score);
-        }
-
-        return `${this.parseScore()}-${score.parseScore()}`
-    }
-
-    areThereAdvantage(scoreOne,scoreTwo) {
+    static areThereAdvantage(scoreOne,scoreTwo) {
         return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
     }
 
-    calculateAdvantageWith(score) {
+    static #calculateAdvantageWith(scoreOne, scoreTwo) {
         const PLAYER_ONE_WINNER = "Win for player1"
         const PLAYER_ONE_ADVANTAGE = "Advantage player1"
         const PLAYER_TWO_WINNER = "Win for player2"
         const PLAYER_TWO_ADVANTAGE = "Advantage player2"
 
-        const countPointDifferences = this.scoreNumber - score.scoreNumber;
+        const countPointDifferences = scoreOne.scoreNumber - scoreTwo.scoreNumber;
 
         if (countPointDifferences === 1) return PLAYER_ONE_ADVANTAGE;
         if (countPointDifferences === -1) return PLAYER_TWO_ADVANTAGE;
@@ -64,8 +55,16 @@ class Score {
         return this.scoreNumber >= 4;
     }
 
-    IsSameScoreAndDeuce(score) {
-        return this.isSameScore(score) && this.scoreNumber >= 3
+    isDeuce() {
+        return this.scoreNumber >= 3
+    }
+
+    parseScore() {
+        if (this.scoreNumber === 0) return this.LOVE
+        if (this.scoreNumber === 1) return this.FIFTEEN
+        if (this.scoreNumber === 2) return this.THIRTY
+
+        return this.FORTY
     }
 }
 
@@ -73,5 +72,5 @@ module.exports = function getScore(playerOneScoreNumber, playerTwoScoreNumber) {
     const playerOneScore = new Score(playerOneScoreNumber);
     const playerTwoScore = new Score(playerTwoScoreNumber);
 
-    return playerOneScore.getScoreComparedWith(playerTwoScore);
+    return Score.calculateScore(playerOneScore, playerTwoScore);
 }
