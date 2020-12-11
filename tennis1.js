@@ -15,11 +15,6 @@ class Score {
     get FORTY() {return this._forty}
     get DEUCE() {return this._deuce}
 
-
-    static areThereAdvantage(scoreOne,scoreTwo) {
-        return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
-    }
-
     isSameScore(score) {
         return score.scoreNumber === this.scoreNumber;
     }
@@ -46,6 +41,10 @@ class Score {
 }
 
 class TennisGame {
+    static #areThereAdvantage(scoreOne,scoreTwo) {
+        return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
+    }
+
     static #calculateAdvantageWith(playerOneScore, playerTwoScore) {
         const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
         const winningPlayer = playerOneScore.isWinningOver(playerTwoScore) ? "player1" : "player2"
@@ -61,7 +60,7 @@ class TennisGame {
                 ? scoreOne.DEUCE
                 : `${scoreOne.parseScore()}-All`
         }
-        if (Score.areThereAdvantage(scoreOne,scoreTwo)) {
+        if (this.#areThereAdvantage(scoreOne,scoreTwo)) {
             return this.#calculateAdvantageWith(scoreOne, scoreTwo);
         }
 
