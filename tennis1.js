@@ -9,6 +9,7 @@ function getScore(playerOneScore, playerTwoScore) {
     // switch statement
     if (playerOneScore === playerTwoScore) {
         switch (playerOneScore) {
+            // Primitive Obsession
             case 0:
                 score = "Love-All";
                 break;
@@ -36,23 +37,21 @@ function getScore(playerOneScore, playerTwoScore) {
                 score += "-";
                 tempScore = playerTwoScore;
             }
-            switch (tempScore) {
-                case 0:
-                    score += "Love";
-                    break;
-                case 1:
-                    score += "Fifteen";
-                    break;
-                case 2:
-                    score += "Thirty";
-                    break;
-                case 3:
-                    score += "Forty";
-                    break;
-            }
+            score += parseScore(tempScore)
         }
     }
     return score;
+}
+
+function parseScore(scoreNumber) {
+    const scoreMap = new Map()
+    scoreMap.set(0, "Love");
+    scoreMap.set(1, "Fifteen");
+    scoreMap.set(2, "Thirty");
+    scoreMap.set(3, "Forty");
+
+    return scoreMap.get(scoreNumber);
+
 }
 
 module.exports = getScore;
