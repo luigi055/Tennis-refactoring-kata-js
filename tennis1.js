@@ -1,18 +1,16 @@
 'use strict';
 
 function getScore(playerOneScore, playerTwoScore) {
-    // mutatable Data
-    var score = "";
-
-    // switch statement
     if (haveSamePoints(playerOneScore, playerTwoScore)) {
-        score = playerOneScore >= 3 ? "Deuce" : parseSingleScore(playerOneScore) + "-All"
-    } else if (haveAnyPlayerAdvantage(playerOneScore, playerTwoScore)) {
-        score = calculatePlayerWinnerOrAdvantage(playerOneScore, playerTwoScore)
-    } else {
-        score = parseSingleScore(playerOneScore) + "-" + parseSingleScore(playerTwoScore)
+        return playerOneScore >= 3 ? "Deuce" : parseSingleScore(playerOneScore) + "-All"
     }
-    return score;
+
+    if (haveAnyPlayerAdvantage(playerOneScore, playerTwoScore)) {
+        return calculatePlayerWinnerOrAdvantage(playerOneScore, playerTwoScore)
+    }
+
+    return parseSingleScore(playerOneScore) + "-" + parseSingleScore(playerTwoScore)
+
 }
 
 function parseSingleScore(scoreNumber) {
