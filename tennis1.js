@@ -5,6 +5,7 @@ class Score {
     #thirty = "Thirty";
     #forty = "Forty";
     #deuce = "Deuce";
+    #advantage = "Advantage"
 
     constructor(scoreNumber) {
         this.#scoreNumber = scoreNumber
@@ -16,6 +17,7 @@ class Score {
     get THIRTY() {return this.#thirty}
     get FORTY() {return this.#forty}
     get DEUCE() {return this.#deuce}
+    get ADVANTAGE() {return this.#advantage}
 
     isSameScore(score) {
         return score.scoreNumber === this.scoreNumber;
@@ -51,7 +53,7 @@ class TennisGame {
         const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
         const winningPlayer = playerOneScore.isWinningOver(playerTwoScore) ? "player1" : "player2"
         const advantageOrWin =
-            (countPointDifferences * countPointDifferences === 1) ? "Advantage": "Win for";
+            (countPointDifferences * countPointDifferences === 1) ? playerOneScore.ADVANTAGE: "Win for";
 
         return `${advantageOrWin} ${winningPlayer}`
     }
