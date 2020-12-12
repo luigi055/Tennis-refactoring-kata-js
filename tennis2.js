@@ -14,17 +14,14 @@ function parseScore(scoreNumber) {
 const getPlayerScoresWithdraw = (p1,p2) => isDeuce(p1,p2) ? "Deuce" :`${parseScore(p1)}-All`
 
 function getScore(P1point, P2point) {
-    if (isPlayerWonTo(P1point,P2point)) {
-        return "Win for player1";
-    } else if (isPlayerWonTo(P2point,P1point)) {
-        return "Win for player2";
-    } else if (haveSameScore(P1point,P2point)) {
-        return getPlayerScoresWithdraw(P1point,P2point)
-    } else if (hasAnyPlayerAdvantage(P1point, P2point)) {
+    if (isPlayerWonTo(P1point,P2point)) return "Win for player1";
+    if (isPlayerWonTo(P2point,P1point)) return "Win for player2";
+    if (haveSameScore(P1point,P2point)) return getPlayerScoresWithdraw(P1point,P2point);
+    if (hasAnyPlayerAdvantage(P1point, P2point))
         return P1point > P2point ? "Advantage player1" : "Advantage player2";
-    } else  {
-        return  parseScore(P1point) + "-" +  parseScore(P2point);
-    }
+
+    return  parseScore(P1point) + "-" +  parseScore(P2point);
+
 }
 
 
