@@ -48,20 +48,21 @@ class Score {
 }
 
 
+const PLAYER1 = "player1"
+const PLAYER2 = "player2"
+const printWinnerOrAdvantage = (playerOne, playerTwo) =>
+    Score.isThereWinner(playerOne, playerTwo) 
+        ? "Win for"
+        : Score.ADVANTAGE;
+
 module.exports = function getScore(playerOneScoreNumber, playerTwoScoreNumber) {
     const playerOne = new Score(playerOneScoreNumber);
     const playerTwo = new Score(playerTwoScoreNumber);
-    const winningPlayer = playerOne.point > playerTwo.point ? "player1":"player2";
-    const {ADVANTAGE} = Score;
+    const winningPlayer = playerOne.point > playerTwo.point ? PLAYER1 : PLAYER2;
 
-    if (Score.areEquals(playerOne,playerTwo)) {
-        return Score.parseWithdraw(playerOne);
-    };
-    if (Score.isThereAdvantage(playerOne, playerTwo)) {
-        const printWinOrAdvantage = Score.isThereWinner(playerOne,playerTwo) ? "Win for" : ADVANTAGE;
-        return `${printWinOrAdvantage} ${winningPlayer}`;
-    };
+    if (Score.areEquals(playerOne,playerTwo)) return Score.parseWithdraw(playerOne);
+    if (Score.isThereAdvantage(playerOne, playerTwo))
+        return `${printWinnerOrAdvantage(playerOne, playerTwo)} ${winningPlayer}`;
 
     return  `${Score.parse(playerOne)}-${Score.parse(playerTwo)}`;
-
 }
