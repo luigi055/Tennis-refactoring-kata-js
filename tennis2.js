@@ -12,12 +12,14 @@ function parseScore(scoreNumber) {
     return "Forty";
 }
 const getPlayerScoresWithdraw = (p1,p2) => isDeuce(p1,p2) ? "Deuce" :`${parseScore(p1)}-All`
+const getWinningPlayer = (p1, p2) => p1 > p2 ? "player1":"player2"
 
 function getScore(P1point, P2point) {
-    if (isThereWinner(P1point,P2point)) return P1point > P2point ? "Win for player1" : "Win for player2";
+    const winningPlayer = getWinningPlayer(P1point,P2point);
+
+    if (isThereWinner(P1point,P2point)) return `Win for ${winningPlayer}`;
     if (haveSameScore(P1point,P2point)) return getPlayerScoresWithdraw(P1point,P2point);
-    if (hasAnyPlayerAdvantage(P1point, P2point))
-        return P1point > P2point ? "Advantage player1" : "Advantage player2";
+    if (hasAnyPlayerAdvantage(P1point, P2point)) return `Advantage ${winningPlayer}`;
 
     return  parseScore(P1point) + "-" +  parseScore(P2point);
 
