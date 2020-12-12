@@ -15,101 +15,27 @@ const hasPlayerAdvantageOver = (p1,p2) => p1 > p2 && p2 >= 3
 const isPlayerWonTo = (p1,p2) => p1 >= 4 && p2 >= 0 && (p1 - p2) >= 2
 
 function getScore(P1point, P2point) {
-    var score = "";
-
-    if (areSameScoreButNotDeuce(P1point,P2point)) {
-        if (P1point === 0) {
-            score = parseScore(0);
-        }
-        if (P1point === 1) {
-            score = parseScore(1);
-        }
-        if (P1point === 2) {
-            score = parseScore(2);
-        }
-        score += "-All";
-    }
-    if (isDeuce(P1point,P2point)) {
-        score = "Deuce";
-    }
-
-    var P1res;
-    var P2res;
-    if (isPlayerWinningOver(P1point,P2point)) {
-        if (P1point === 1) {
-            P1res = parseScore(1);
-        }
-        if (P1point === 2) {
-            P1res = parseScore(2);
-        }
-        if (P1point === 3) {
-            P1res = parseScore(3);
-        }
-
-        P2res = parseScore(0);
-        score = P1res + "-" + P2res;
-    }
-    if (isPlayerWinningOver(P2point,P1point)) {
-        if (P2point === 1) {
-            P2res = parseScore(1);
-        }
-        if (P2point === 2) {
-            P2res = parseScore(2);
-        }
-        if (P2point === 3) {
-            P2res = parseScore(3);
-        }
-
-        P1res = parseScore(0);
-        score = P1res + "-" + P2res;
-    }
-
-    if (isPlayerWinningOverAndNotAdvantage(P1point,P2point)) {
-        if (P1point === 2) {
-            P1res = parseScore(2);
-        }
-        if (P1point === 3) {
-            P1res = parseScore(3);
-        }
-        if (P2point === 1) {
-            P2res = parseScore(1);
-        }
-        if (P2point === 2) {
-            P2res = parseScore(2);
-        }
-        score = P1res + "-" + P2res;
-    }
-    if (isPlayerWinningOverAndNotAdvantage(P2point,P1point)) {
-        if (P2point === 2) {
-            P2res = parseScore(2);
-        }
-        if (P2point === 3) {
-            P2res = parseScore(3);
-        }
-        if (P1point === 1) {
-            P1res = parseScore(1);
-        }
-        if (P1point === 2) {
-            P1res = parseScore(2);
-        }
-        score = P1res + "-" + P2res;
-    }
-
-    if (hasPlayerAdvantageOver(P1point, P2point)) {
-        score = "Advantage player1";
-    }
-
-    if (hasPlayerAdvantageOver(P2point, P1point)) {
-        score = "Advantage player2";
-    }
-
     if (isPlayerWonTo(P1point,P2point)) {
-        score = "Win for player1";
+        return "Win for player1";
+    } else if (isPlayerWonTo(P2point,P1point)) {
+        return "Win for player2";
+    } else if (areSameScoreButNotDeuce(P1point,P2point)) {
+        return `${parseScore(P1point)}-All`
+    } else if (isDeuce(P1point,P2point)) {
+        return "Deuce";
+    } else if (isPlayerWinningOver(P1point,P2point)) {
+        return parseScore(P1point) + "-" + parseScore(0);
+    } else if (isPlayerWinningOver(P2point,P1point)) {
+        return parseScore(0) + "-" + parseScore(P2point);
+    } else if (isPlayerWinningOverAndNotAdvantage(P1point,P2point)) {
+        return  parseScore(P1point) + "-" +  parseScore(P2point);
+    } else if (isPlayerWinningOverAndNotAdvantage(P2point,P1point)) {
+        return  parseScore(P1point) + "-" +  parseScore(P2point);
+    } else if (hasPlayerAdvantageOver(P1point, P2point)) {
+        return "Advantage player1";
+    } else if (hasPlayerAdvantageOver(P2point, P1point)) {
+        return "Advantage player2";
     }
-    if (isPlayerWonTo(P2point,P1point)) {
-        score = "Win for player2";
-    }
-    return score;
 }
 
 
