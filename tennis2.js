@@ -1,7 +1,8 @@
 /**
  * Refactoring to Functional Style
  */
-// Mimic Algebraic Data Type in Javascript to Represent a Score
+// Mimic Algebraic Data Type and a encapsulated module
+// In Javascript to Represent a Score
 class Score {
     #point = 0
     static LOVE = "Love";
@@ -27,11 +28,11 @@ class Score {
 
     static isThereWinner(scoreOne, scoreTwo) {
         return this.isThereAdvantage(scoreOne, scoreTwo)
-            && (Math.abs(scoreOne.point - scoreTwo.point)) >= 2;
+               && (Math.abs(scoreOne.point - scoreTwo.point)) >= 2;
     }
 
     static isDeuce(scoreOne, scoreTwo) {
-        return Score.areEquals(scoreOne,scoreTwo) && scoreOne.point > 2;
+        return Score.areEquals(scoreOne, scoreTwo) && scoreOne.point > 2;
     }
 
     static parse({point}) {
@@ -43,10 +44,11 @@ class Score {
     }
 
     static parseWithdraw(score) {
-        return Score.isDeuce(score,score) ? Score.DEUCE :`${Score.parse(score)}-All`
+        return Score.isDeuce(score,score)
+                ? Score.DEUCE
+                :`${Score.parse(score)}-All`;
     }
 }
-
 
 const PLAYER1 = "player1"
 const PLAYER2 = "player2"
