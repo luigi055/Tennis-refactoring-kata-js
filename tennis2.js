@@ -1,17 +1,24 @@
 'use strict';
 
+function parseScore(scoreNumber) {
+    if (scoreNumber === 0) return "Love"
+    if (scoreNumber === 1) return "Fifteen"
+    if (scoreNumber === 2) return "Thirty";
+    return "Forty";
+}
+
 function getScore(P1point, P2point) {
     var score = "";
 
     if (P1point === P2point && P1point < 3) {
         if (P1point === 0) {
-            score = "Love";
+            score = parseScore(0);
         }
         if (P1point === 1) {
-            score = "Fifteen";
+            score = parseScore(1);
         }
         if (P1point === 2) {
-            score = "Thirty";
+            score = parseScore(2);
         }
         score += "-All";
     }
@@ -23,60 +30,60 @@ function getScore(P1point, P2point) {
     var P2res;
     if (P1point > 0 && P2point === 0) {
         if (P1point === 1) {
-            P1res = "Fifteen";
+            P1res = parseScore(1);
         }
         if (P1point === 2) {
-            P1res = "Thirty";
+            P1res = parseScore(2);
         }
         if (P1point === 3) {
-            P1res = "Forty";
+            P1res = parseScore(3);
         }
 
-        P2res = "Love";
+        P2res = parseScore(0);
         score = P1res + "-" + P2res;
     }
     if (P2point > 0 && P1point === 0) {
         if (P2point === 1) {
-            P2res = "Fifteen";
+            P2res = parseScore(1);
         }
         if (P2point === 2) {
-            P2res = "Thirty";
+            P2res = parseScore(2);
         }
         if (P2point === 3) {
-            P2res = "Forty";
+            P2res = parseScore(3);
         }
 
-        P1res = "Love";
+        P1res = parseScore(0);
         score = P1res + "-" + P2res;
     }
 
     if (P1point > P2point && P1point < 4) {
         if (P1point === 2) {
-            P1res = "Thirty";
+            P1res = parseScore(2);
         }
         if (P1point === 3) {
-            P1res = "Forty";
+            P1res = parseScore(3);
         }
         if (P2point === 1) {
-            P2res = "Fifteen";
+            P2res = parseScore(1);
         }
         if (P2point === 2) {
-            P2res = "Thirty";
+            P2res = parseScore(2);
         }
         score = P1res + "-" + P2res;
     }
     if (P2point > P1point && P2point < 4) {
         if (P2point === 2) {
-            P2res = "Thirty";
+            P2res = parseScore(2);
         }
         if (P2point === 3) {
-            P2res = "Forty";
+            P2res = parseScore(3);
         }
         if (P1point === 1) {
-            P1res = "Fifteen";
+            P1res = parseScore(1);
         }
         if (P1point === 2) {
-            P1res = "Thirty";
+            P1res = parseScore(2);
         }
         score = P1res + "-" + P2res;
     }
