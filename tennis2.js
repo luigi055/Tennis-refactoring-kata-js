@@ -10,7 +10,6 @@ function parseScore(scoreNumber) {
 const areSameScoreButNotDeuce = (p1,p2) => p1 === p2 && p1 < 3
 const isDeuce = (p1,p2) => p1 === p2 && p1 > 2
 const isPlayerWinningOver = (p1,p2) => p1 > 0 && p2 === 0
-const isPlayerWinningOverAndNotAdvantage = (p1,p2) => p1 > p2 && p1 < 4
 const hasPlayerAdvantageOver = (p1,p2) => p1 > p2 && p2 >= 3
 const isPlayerWonTo = (p1,p2) => p1 >= 4 && p2 >= 0 && (p1 - p2) >= 2
 
@@ -27,14 +26,12 @@ function getScore(P1point, P2point) {
         return parseScore(P1point) + "-" + parseScore(0);
     } else if (isPlayerWinningOver(P2point,P1point)) {
         return parseScore(0) + "-" + parseScore(P2point);
-    } else if (isPlayerWinningOverAndNotAdvantage(P1point,P2point)) {
-        return  parseScore(P1point) + "-" +  parseScore(P2point);
-    } else if (isPlayerWinningOverAndNotAdvantage(P2point,P1point)) {
-        return  parseScore(P1point) + "-" +  parseScore(P2point);
     } else if (hasPlayerAdvantageOver(P1point, P2point)) {
         return "Advantage player1";
     } else if (hasPlayerAdvantageOver(P2point, P1point)) {
         return "Advantage player2";
+    } else {
+        return  parseScore(P1point) + "-" +  parseScore(P2point);
     }
 }
 
