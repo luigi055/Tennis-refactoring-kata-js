@@ -10,26 +10,20 @@ const PLAYER_TWO = "player2"
 
 function getScore(playerOneScore, playerTwoScore) {
     const scores = [LOVE, FIFTEEN, THIRTY, FORTY];
+    const countDifference = Math.abs(playerOneScore - playerTwoScore)
     const winningPlayer = playerOneScore > playerTwoScore ? PLAYER_ONE : PLAYER_TWO
     const areEquals = playerOneScore === playerTwoScore;
-    const isThereAdvantage = (playerOneScore + playerTwoScore >= 6)
-    const isThereWinner = Math.abs(playerOneScore - playerTwoScore) > 1
-    const isDeuce = areEquals && isThereAdvantage
+    const isAdvantage = playerOneScore >= 4 || playerTwoScore >= 4
+    const isGame = isAdvantage && countDifference >= 2
+    const isDeuce = playerOneScore >= 3 && playerOneScore >= 3
 
-    if (areEquals && !isThereAdvantage) {
-        return scores[playerOneScore] + "-All"
-    }
-    if ((playerOneScore < 4 && playerTwoScore < 4) && !areEquals) {
-        return scores[playerOneScore] + "-" + scores[playerTwoScore]
-    }
-    if (isDeuce) {
-        return DEUCE;
-    }
+    if (areEquals && !isDeuce) return scores[playerOneScore] + "-All"
+    if (areEquals && isDeuce) return DEUCE
+    if (isGame) return `Win for ${winningPlayer}`
+    if (isAdvantage) return `${ADVANTAGE} ${winningPlayer}`
 
-    return `${isThereWinner
-                ? "Win for"
-                : ADVANTAGE
-            } ${winningPlayer}`;
+    return scores[playerOneScore] + "-" + scores[playerTwoScore]
+
 
 }
 
