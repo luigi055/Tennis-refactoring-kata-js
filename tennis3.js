@@ -7,10 +7,11 @@ const FORTY = "Forty";
 const DEUCE = "Deuce";
 const ADVANTAGE = "Advantage"
 
+const PLAYER_ONE = "player1"
+const PLAYER_TWO = "player2"
+
 function getScore(p1, p2) {
     var s;
-    let p1N = "player1";
-    let p2N = "player2";
     if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6)) {
         var p = [LOVE, FIFTEEN, THIRTY, FORTY];
         s = p[p1];
@@ -19,7 +20,7 @@ function getScore(p1, p2) {
         if (p1 === p2) {
             return DEUCE;
         }
-        s = p1 > p2 ? p1N : p2N;
+        s = p1 > p2 ? PLAYER_ONE : PLAYER_TWO;
         return ((p1 - p2) * (p1 - p2) === 1) ? ADVANTAGE + " " + s : "Win for " + s;
     }
 }
