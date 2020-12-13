@@ -45,36 +45,47 @@ class Score {
 }
 
 class TennisGame {
-    static #areThereAdvantage(scoreOne,scoreTwo) {
-        return scoreOne.isAdvantage() || scoreTwo.isAdvantage();
+    #playerOneScore;
+    #playerTwoScore;
+    constructor(playerOneScore, playerTwoScore) {
+        this.#playerOneScore = playerOneScore
+        this.#playerTwoScore = playerTwoScore
     }
 
-    static #calculateAdvantageWith(playerOneScore, playerTwoScore) {
-        const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
-        const winningPlayer = playerOneScore.isWinningOver(playerTwoScore) ? "player1" : "player2"
+    get playerOneScore() { return  this.#playerOneScore; }
+    get playerTwoScore() { return  this.#playerTwoScore; }
+
+    #areThereAdvantage(scoreOne,scoreTwo) {
+        return this.playerOneScore.isAdvantage() || this.playerTwoScore.isAdvantage();
+    }
+
+    #calculateAdvantageWith() {
+        const countPointDifferences = this.playerOneScore.scoreNumber - this.playerTwoScore.scoreNumber;
+        const winningPlayer = this.playerOneScore.isWinningOver(this.playerTwoScore) ? "player1" : "player2"
         const advantageOrWin =
-            (countPointDifferences * countPointDifferences === 1) ? playerOneScore.ADVANTAGE: "Win for";
+            (countPointDifferences * countPointDifferences === 1) ? this.playerOneScore.ADVANTAGE: "Win for";
 
         return `${advantageOrWin} ${winningPlayer}`
     }
 
-    static calculateScore(scoreOne, scoreTwo) {
-        if (scoreOne.isSameScore(scoreTwo)) {
-            return scoreOne.isDeuce()
-                ? scoreOne.DEUCE
-                : `${scoreOne.parseScore()}-All`
+    calculateScore() {
+        if (this.playerOneScore.isSameScore(this.playerTwoScore)) {
+            return this.playerOneScore.isDeuce()
+                ? this.playerOneScore.DEUCE
+                : `${this.playerOneScore.parseScore()}-All`
         }
-        if (this.#areThereAdvantage(scoreOne,scoreTwo)) {
-            return this.#calculateAdvantageWith(scoreOne, scoreTwo);
+        if (this.#areThereAdvantage()) {
+            return this.#calculateAdvantageWith();
         }
 
-        return `${scoreOne.parseScore()}-${scoreTwo.parseScore()}`
+        return `${this.playerOneScore.parseScore()}-${this.playerTwoScore.parseScore()}`
     }
 }
 
 module.exports = function getScore(playerOneScoreNumber, playerTwoScoreNumber) {
     const playerOneScore = new Score(playerOneScoreNumber);
     const playerTwoScore = new Score(playerTwoScoreNumber);
+    const tennisGame = new TennisGame(playerOneScore, playerTwoScore);
 
-    return TennisGame.calculateScore(playerOneScore, playerTwoScore);
+    return tennisGame.calculateScore();
 }
