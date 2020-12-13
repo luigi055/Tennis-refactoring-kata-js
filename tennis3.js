@@ -1,5 +1,3 @@
-'use strict';
-
 const LOVE = "Love";
 const FIFTEEN = "Fifteen";
 const THIRTY = "Thirty";
@@ -10,25 +8,27 @@ const ADVANTAGE = "Advantage"
 const PLAYER_ONE = "player1"
 const PLAYER_TWO = "player2"
 
-function getScore(p1, p2) {
+function getScore(playerOneScore, playerTwoScore) {
     const scores = [LOVE, FIFTEEN, THIRTY, FORTY];
-    const winningPlayer = p1 > p2 ? PLAYER_ONE : PLAYER_TWO
-    const isThereAdvantage = Math.abs(p1 - p2) === 1
-    const areEquals = p1 === p2;
-    const isDeuce = (p1 + p2 >= 6)
+    const winningPlayer = playerOneScore > playerTwoScore ? PLAYER_ONE : PLAYER_TWO
+    const areEquals = playerOneScore === playerTwoScore;
+    const isThereAdvantage = (playerOneScore + playerTwoScore >= 6)
+    const isThereWinner = Math.abs(playerOneScore - playerTwoScore) > 1
+    const isDeuce = areEquals && isThereAdvantage
 
-    if (areEquals && !isDeuce) {
-        return scores[p1] + "-All"
+    if (areEquals && !isThereAdvantage) {
+        return scores[playerOneScore] + "-All"
     }
-    if ((p1 < 4 && p2 < 4) && !areEquals) {
-        return scores[p1] + "-" + scores[p2]
+    if ((playerOneScore < 4 && playerTwoScore < 4) && !areEquals) {
+        return scores[playerOneScore] + "-" + scores[playerTwoScore]
     }
-    if (areEquals && isDeuce) {
+    if (isDeuce) {
         return DEUCE;
     }
-    return `${isThereAdvantage
-                ? ADVANTAGE
-                : "Win for"
+
+    return `${isThereWinner
+                ? "Win for"
+                : ADVANTAGE
             } ${winningPlayer}`;
 
 }
