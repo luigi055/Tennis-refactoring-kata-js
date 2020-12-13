@@ -11,17 +11,20 @@ const PLAYER_ONE = "player1"
 const PLAYER_TWO = "player2"
 
 function getScore(p1, p2) {
-    var s;
+    const p = [LOVE, FIFTEEN, THIRTY, FORTY];
+    const winningPlayer = p1 > p2 ? PLAYER_ONE : PLAYER_TWO
     if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6)) {
-        var p = [LOVE, FIFTEEN, THIRTY, FORTY];
+        let s;
         s = p[p1];
         return (p1 === p2) ? s + "-All" : s + "-" + p[p2];
     } else {
         if (p1 === p2) {
             return DEUCE;
         }
-        s = p1 > p2 ? PLAYER_ONE : PLAYER_TWO;
-        return ((p1 - p2) * (p1 - p2) === 1) ? ADVANTAGE + " " + s : "Win for " + s;
+        return `${(Math.abs(p1 - p2) === 1)
+                    ? ADVANTAGE
+                    : "Win for"
+                } ${winningPlayer}`;
     }
 }
 
