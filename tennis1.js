@@ -50,7 +50,8 @@ class TennisGame {
     get playerTwoScore() { return  this.#playerTwoScore; }
 
     #areThereAdvantage(scoreOne,scoreTwo) {
-        return this.playerOneScore.isAdvantage() || this.playerTwoScore.isAdvantage();
+        const  { playerOneScore, playerTwoScore } = this;
+        return playerOneScore.isAdvantage() || playerTwoScore.isAdvantage();
     }
 
     #calculateAdvantageWith() {
@@ -64,16 +65,18 @@ class TennisGame {
     }
 
     calculateScore() {
-        if (this.playerOneScore.isSameScore(this.playerTwoScore)) {
-            return this.playerOneScore.isDeuceWith(this.playerTwoScore)
+        const { playerOneScore, playerTwoScore } = this;
+
+        if (playerOneScore.isSameScore(playerTwoScore)) {
+            return playerOneScore.isDeuceWith(playerTwoScore)
                 ? Score.DEUCE
-                : `${this.playerOneScore.parseScore()}-All`
+                : `${playerOneScore.parseScore()}-All`
         }
         if (this.#areThereAdvantage()) {
             return this.#calculateAdvantageWith();
         }
 
-        return `${this.playerOneScore.parseScore()}-${this.playerTwoScore.parseScore()}`
+        return `${playerOneScore.parseScore()}-${playerTwoScore.parseScore()}`
     }
 }
 
