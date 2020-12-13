@@ -55,7 +55,7 @@ class TennisGame {
     }
 
     #calculateAdvantageWith() {
-        const  { playerOneScore, playerTwoScore } = this;
+        const { playerOneScore, playerTwoScore } = this;
         const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
         const winningPlayer = playerOneScore.isWinningOver(playerTwoScore) ? "player1" : "player2"
         const advantageOrWin =
