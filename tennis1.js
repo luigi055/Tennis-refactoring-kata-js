@@ -21,12 +21,6 @@ class Score {
         return this.scoreNumber >= 4;
     }
 
-    isDeuceWith(scoreToCompare) {
-        return this.hasSameScorePoint(scoreToCompare) 
-                    && this.scoreNumber >= 3
-                    && scoreToCompare.scoreNumber >= 3;
-    }
-
     isWinningOver(score) {
         return this.scoreNumber > score.scoreNumber;
     }
@@ -69,7 +63,17 @@ class TennisGame {
             ? this.#PLAYER_ONE
             : this.#PLAYER_TWO
     }
-    
+
+    haveSamePoints() {
+        return this.playerOneScore.hasSameScorePoint(this.playerTwoScore)
+    }
+
+    isDeuce() {
+        return this.haveSamePoints
+                    && this.playerOneScore.scoreNumber >= 3
+                    && this.playerTwoScore.scoreNumber >= 3;
+    }
+
     isAdvantage() {
         return this.#areThereAdvantage() && this.#countScoreDifference() === 1;
     }
@@ -81,14 +85,13 @@ class TennisGame {
 
     calculateScore() {
         const { playerOneScore, playerTwoScore } = this;
-        const isDeuce = playerOneScore.isDeuceWith(playerTwoScore)
         const haveSameScore = playerOneScore.hasSameScorePoint(playerTwoScore)
         const winningPlayer = this.#getWinningPlayer()
 
         if (this.isGame()) return `Win for ${winningPlayer}`
         if (this.isAdvantage()) return `${Score.ADVANTAGE} ${winningPlayer}`;
-        if (isDeuce) return Score.DEUCE;
-        if (haveSameScore && !isDeuce) return `${playerOneScore.parseScore()}-All`;
+        if (this.isDeuce()) return Score.DEUCE;
+        if (this.haveSamePoints() && !this.isDeuce()) return `${playerOneScore.parseScore()}-All`;
 
         return `${playerOneScore.parseScore()}-${playerTwoScore.parseScore()}`
     }
