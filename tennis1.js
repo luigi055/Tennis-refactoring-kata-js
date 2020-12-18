@@ -17,10 +17,6 @@ class Score {
         return score.scoreNumber === this.scoreNumber;
     }
 
-    isAdvantage() {
-        return this.scoreNumber >= 4;
-    }
-
     isWinningOver(score) {
         return this.scoreNumber > score.scoreNumber;
     }
