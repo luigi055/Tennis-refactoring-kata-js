@@ -13,7 +13,7 @@ class Score {
 
     get scoreNumber() { return this.#scoreNumber; } 
 
-    isSameScore(score) {
+    hasSameScorePoint(score) {
         return score.scoreNumber === this.scoreNumber;
     }
 
@@ -22,7 +22,7 @@ class Score {
     }
 
     isDeuceWith(scoreToCompare) {
-        return this.isSameScore(scoreToCompare) 
+        return this.hasSameScorePoint(scoreToCompare) 
                     && this.scoreNumber >= 3
                     && scoreToCompare.scoreNumber >= 3;
     }
@@ -73,7 +73,7 @@ class TennisGame {
     calculateScore() {
         const { playerOneScore, playerTwoScore } = this;
         const isDeuce = playerOneScore.isDeuceWith(playerTwoScore)
-        const haveSameScore = playerOneScore.isSameScore(playerTwoScore)
+        const haveSameScore = playerOneScore.hasSameScorePoint(playerTwoScore)
 
         if (haveSameScore && !isDeuce) return `${playerOneScore.parseScore()}-All`;
         if (isDeuce) return Score.DEUCE
