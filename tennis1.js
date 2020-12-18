@@ -43,8 +43,8 @@ class Score {
 class TennisGame {
     #playerOneScore;
     #playerTwoScore;
-    #playerOne = "player1";
-    #playerTwo = "player2";
+    #PLAYER_ONE = "player1";
+    #PLAYER_TWO = "player2";
 
     constructor(playerOneScore, playerTwoScore) {
         this.#playerOneScore = playerOneScore
@@ -54,31 +54,40 @@ class TennisGame {
     get playerOneScore() { return  this.#playerOneScore; }
     get playerTwoScore() { return  this.#playerTwoScore; }
 
-    #areThereAdvantage() {
-        const  { playerOneScore, playerTwoScore } = this;
-        return playerOneScore.scoreNumber >= 4 || playerTwoScore.scoreNumber >= 4;
+    #countScoreDifference() { 
+        const { playerOneScore, playerTwoScore } = this;
+        return Math.abs(playerOneScore.scoreNumber - playerTwoScore.scoreNumber);
     }
 
-    #calculateAdvantage() {
-        const { playerOneScore, playerTwoScore } = this;
-        const countPointDifferences = playerOneScore.scoreNumber - playerTwoScore.scoreNumber;
-        const winningPlayer = playerOneScore.isWinningOver(playerTwoScore)
-                                ? this.#playerOne
-                                : this.#playerTwo;
-        const advantageOrWin =
-            (Math.abs(countPointDifferences) === 1) ? Score.ADVANTAGE: "Win for";
-        return `${advantageOrWin} ${winningPlayer}`
+    #areThereAdvantage() {
+        const  { playerOneScore, playerTwoScore } = this;
+        return playerOneScore.scoreNumber >= 4|| playerTwoScore.scoreNumber >= 4;
     }
+
+    #getWinningPlayer() {
+        return this.playerOneScore.isWinningOver(this.playerTwoScore)
+            ? this.#PLAYER_ONE
+            : this.#PLAYER_TWO
+    }
+    
+    isAdvantage() {
+        return this.#areThereAdvantage() && this.#countScoreDifference() === 1;
+    }
+
+    isGame() {
+        return this.#areThereAdvantage() && this.#countScoreDifference() > 1;
+    }
+
 
     calculateScore() {
         const { playerOneScore, playerTwoScore } = this;
         const isDeuce = playerOneScore.isDeuceWith(playerTwoScore)
         const haveSameScore = playerOneScore.hasSameScorePoint(playerTwoScore)
+        const winningPlayer = this.#getWinningPlayer()
 
-        if (isDeuce) return Score.DEUCE
-        if (this.#areThereAdvantage()) {
-            return this.#calculateAdvantage();
-        }
+        if (this.isGame()) return `Win for ${winningPlayer}`
+        if (this.isAdvantage()) return `${Score.ADVANTAGE} ${winningPlayer}`;
+        if (isDeuce) return Score.DEUCE;
         if (haveSameScore && !isDeuce) return `${playerOneScore.parseScore()}-All`;
 
         return `${playerOneScore.parseScore()}-${playerTwoScore.parseScore()}`
